@@ -46,4 +46,10 @@ class FirstImageFragment: Fragment() {
                 })
         }
     }
+
+    //onActivityCreated is deprecated so onViewCreated() will be used.
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        loadFirstImageUrl()
+        super.onViewCreated(view, savedInstanceState)
+    }
 }
