@@ -40,7 +40,7 @@ class FirstImageFragment: Fragment() {
 
         activity?.let {
             Glide.with(it).asBitmap()
-                .load(Uri.parse(imageUrl1))
+                .load((imageUrl1))
                 .into(object: BitmapImageViewTarget(mImage){
                     override fun onResourceReady(resource: Bitmap,transition: Transition<in Bitmap>?,) {
                         super.onResourceReady(resource, transition)
