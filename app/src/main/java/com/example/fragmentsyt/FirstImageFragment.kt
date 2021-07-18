@@ -6,32 +6,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.fragmentsyt.databinding.FirstImageFragmentBinding
 
-private val imageUrl1 = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/medium-sized-dogs-1613083812.jpg?crop=1.00xw:0.752xh;0,0&resize=768:*"
 
 class FirstImageFragment: Fragment() {
+
+    private val imageUrl1 = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/medium-sized-dogs-1613083812.jpg?crop=1.00xw:0.752xh;0,0&resize=768:*"
 
     companion object{
         fun newInstance() = FirstImageFragment()
     }
-     lateinit var mProgressBar: ProgressBar
-     lateinit var mImage: ImageView
+
+    private var _binding: FirstImageFragmentBinding? = null
+    private val binding
+    get() = _binding!!
 
     //private val imageUrl2 = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/medium-dog-breeds-border-collie-1613075882.jpg?crop=0.9721196690006366xw:1xh;center,top&resize=980:*"
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?,): View? {
-        val view = inflater.inflate(R.layout.first_image_fragment, container, false)
-        mProgressBar  = view.findViewById(R.id.firstFragmentProgressBar)
-        mImage = view.findViewById(R.id.firstFragmentImage)
+        _binding = FirstImageFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
         return view
     }
 
     private fun loadFirstImageUrl(){
+        val mImage = binding.firstFragmentImage
+        val mProgressBar = binding.firstFragmentProgressBar
         mProgressBar.visibility = View.VISIBLE
 
 
