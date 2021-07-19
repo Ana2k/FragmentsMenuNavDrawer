@@ -3,6 +3,7 @@ package com.example.fragmentsyt
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,8 +39,7 @@ class FirstImageFragment: Fragment() {
         mProgressBar.visibility = View.VISIBLE
 
 
-        activity?.let {
-            Glide.with(it).asBitmap()
+         Glide.with(requireContext()).asBitmap()
                 .load((imageUrl1))
                 .into(object: BitmapImageViewTarget(mImage){
                     override fun onResourceReady(resource: Bitmap,transition: Transition<in Bitmap>?,) {
@@ -48,7 +48,6 @@ class FirstImageFragment: Fragment() {
                     }
                 })
         }
-    }
 
     //onActivityCreated is deprecated so onViewCreated() will be used.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

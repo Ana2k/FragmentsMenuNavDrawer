@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -46,9 +48,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment){
+    private fun selectDrawerItem(item: MenuItem){
+        var fragment: Fragment? = null
+        val fragmentClass = when(item.itemId){
+            R.id.firstFragmentItem -> FirstImageFragment::class.java
+            R.id.secondFragmentItem -> SecondImageFragment::class.java
+            else-> FirstImageFragment::class.java
+        }
+        try{
+            fragment = fragmentClass.newInstance() as Fragment
+        }catch (e: ClassCastException){
+            e.printStackTrace()
+        }
+        replaceFragment(fragment)
+    }
+
+    private fun replaceFragment(fragment: Fragment?){
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainerView,fragment)
+        if (fragment != null) {
+            fragmentTransaction.replace(R.id.fragmentContainerView,fragment)
+        }
         fragmentTransaction.commit()
     }
 }
