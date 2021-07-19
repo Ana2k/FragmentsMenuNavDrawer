@@ -1,33 +1,53 @@
 package com.example.fragmentsyt
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.fragmentsyt.databinding.ActivityMainBinding
-import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     private val binding
-        get() = _binding!!
+        get() = _binding
+
+    var mToolbar = binding.toolbar
+    var mDrawerLayout = binding.drawerLayout
+    val mDrawerToggle by lazy{
+        ActionBarDrawerToggle(this, mDrawerLayout,mToolbar,R.string.drawer_open,R.string.drawer_close)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        var navigationView = binding.navigationView
+        setSupportActionBar(mToolbar)
+
+        val navigationView = binding.navigationView
 
         navigationView.setNavigationItemSelectedListener {
             selectDrawerItem(it)
             true
         }
+        mDrawerLayout.addDrawerListener(mDrawerToggle)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mDrawerToggle.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mDrawerToggle.onConfigurationChanged(newConfig)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -37,22 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item?.itemId){
-            R.id.firstFragmentItem ->{
-                val fragment = FirstImageFragment.newInstance()
-                replaceFragment(fragment)
-                Log.d("Ana","Second Imag-Maine Act")
-                true
-            }
-            R.id.secondFragmentItem ->{
-                val fragment = SecondImageFragment.newInstance()
-                replaceFragment(fragment)
-                Log.d("Ana","Second Imag-Maine Act")
-                true
-            }
-
-        else -> super.onOptionsItemSelected(item)
-        }
+        return if (mDrawerToggle.onOptionsItemSelected(item)) true else super.onOptionsItemSelected(item)
     }
 
     private fun selectDrawerItem(item: MenuItem){

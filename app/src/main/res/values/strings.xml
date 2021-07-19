@@ -2,4 +2,6 @@
     <string name="app_name">FragmentsYT</string>
     <string name="first_image">First Image</string>
     <string name="second_image">Second Image</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
 </resources>
