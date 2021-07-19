@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.fragmentsyt.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        NavigationView.OnNavigationItemSelectedListener{
+                    selectDrawerItem(it)
+            true
+        }
 
     }
 
