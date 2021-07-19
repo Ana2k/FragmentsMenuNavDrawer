@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FragmentsYT</string>
+    <string name="first_image">First Image</string>
+    <string name="second_image">Second Image</string>
 </resources>

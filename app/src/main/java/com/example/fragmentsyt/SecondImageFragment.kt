@@ -10,37 +10,37 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.fragmentsyt.databinding.FirstImageFragmentBinding
+import com.example.fragmentsyt.databinding.SecondImageFragmentBinding
 
 
-class FirstImageFragment: Fragment() {
+class SecondImageFragment: Fragment() {
 
-    private val imageUrl1 = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/medium-sized-dogs-1613083812.jpg?crop=1.00xw:0.752xh;0,0&resize=768:*"
+    private val imageUrl2 = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/medium-dog-breeds-border-collie-1613075882.jpg?crop=0.9721196690006366xw:1xh;center,top&resize=980:*"
 
     companion object{
-        fun newInstance() = FirstImageFragment()
+        fun newInstance() = SecondImageFragment()
     }
 
-    private var _binding: FirstImageFragmentBinding? = null
+    private var _binding: SecondImageFragmentBinding? = null
     private val binding
     get() = _binding!!
 
     //private val imageUrl2 = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/medium-dog-breeds-border-collie-1613075882.jpg?crop=0.9721196690006366xw:1xh;center,top&resize=980:*"
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?,): View? {
-        _binding = FirstImageFragmentBinding.inflate(inflater, container, false)
+        _binding = SecondImageFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
 
-    private fun loadFirstImageUrl(){
-        var mImage = binding.firstFragmentImage
-        var mProgressBar = binding.firstFragmentProgressBar
+    private fun loadsecondImageUrl(){
+        var mImage = binding.secondFragmentImage
+        var mProgressBar = binding.secondFragmentProgressBar
         mProgressBar.visibility = View.VISIBLE
 
 
         activity?.let {
             Glide.with(it).asBitmap()
-                .load(Uri.parse(imageUrl1))
+                .load(Uri.parse(imageUrl2))
                 .into(object: BitmapImageViewTarget(mImage){
                     override fun onResourceReady(resource: Bitmap,transition: Transition<in Bitmap>?,) {
                         super.onResourceReady(resource, transition)
@@ -52,7 +52,7 @@ class FirstImageFragment: Fragment() {
 
     //onActivityCreated is deprecated so onViewCreated() will be used.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        loadFirstImageUrl()
+        loadsecondImageUrl()
         super.onViewCreated(view, savedInstanceState)
     }
 }
