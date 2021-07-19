@@ -3,9 +3,11 @@ package com.example.fragmentsyt
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.fragmentsyt.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
@@ -20,12 +22,12 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        var navigationView = binding.navigationView
 
-        NavigationView.OnNavigationItemSelectedListener{
-                    selectDrawerItem(it)
+        navigationView.setNavigationItemSelectedListener {
+            selectDrawerItem(it)
             true
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -39,13 +41,13 @@ class MainActivity : AppCompatActivity() {
             R.id.firstFragmentItem ->{
                 val fragment = FirstImageFragment.newInstance()
                 replaceFragment(fragment)
-                Log.d("Image","First Image")
+                Log.d("Ana","Second Imag-Maine Act")
                 true
             }
             R.id.secondFragmentItem ->{
                 val fragment = SecondImageFragment.newInstance()
                 replaceFragment(fragment)
-                Log.d("Image","Second Image")
+                Log.d("Ana","Second Imag-Maine Act")
                 true
             }
 
@@ -55,17 +57,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun selectDrawerItem(item: MenuItem){
         var fragment: Fragment? = null
+        Log.d("Ana","selectDraweerItembeingCalled")
         val fragmentClass = when(item.itemId){
             R.id.firstFragmentItem -> FirstImageFragment::class.java
             R.id.secondFragmentItem -> SecondImageFragment::class.java
             else-> FirstImageFragment::class.java
         }
+        Log.d("Ana","fragmentClass called?\n"+fragmentClass)
+
         try{
             fragment = fragmentClass.newInstance() as Fragment
+            Log.d("Ana", "Inside try"+fragment.toString())
         }catch (e: ClassCastException){
             e.printStackTrace()
+            Log.d("Ana", "inside catch")
         }
         replaceFragment(fragment)
+        val drawerLayout = binding.drawerLayout
+            drawerLayout.closeDrawer(GravityCompat.START)
+        Log.d("Ana", "draewr layout"+drawerLayout.toString())
+        //closes the drawer
     }
 
     private fun replaceFragment(fragment: Fragment?){
