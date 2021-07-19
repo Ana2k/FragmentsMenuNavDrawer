@@ -32,7 +32,7 @@ class SecondImageFragment: Fragment() {
         return view
     }
 
-    private fun loadsecondImageUrl(){
+    private fun loadSecondImageUrl(){
         var mImage = binding.secondFragmentImage
         var mProgressBar = binding.secondFragmentProgressBar
         mProgressBar.visibility = View.VISIBLE
@@ -40,7 +40,7 @@ class SecondImageFragment: Fragment() {
 
         activity?.let {
             Glide.with(it).asBitmap()
-                .load(Uri.parse(imageUrl2))
+                .load((imageUrl2))
                 .into(object: BitmapImageViewTarget(mImage){
                     override fun onResourceReady(resource: Bitmap,transition: Transition<in Bitmap>?,) {
                         super.onResourceReady(resource, transition)
@@ -52,7 +52,7 @@ class SecondImageFragment: Fragment() {
 
     //onActivityCreated is deprecated so onViewCreated() will be used.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        loadsecondImageUrl()
+        loadSecondImageUrl()
         super.onViewCreated(view, savedInstanceState)
     }
 }

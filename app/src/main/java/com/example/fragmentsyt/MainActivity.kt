@@ -2,6 +2,7 @@ package com.example.fragmentsyt
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -31,11 +32,13 @@ class MainActivity : AppCompatActivity() {
             R.id.firstFragmentItem ->{
                 val fragment = FirstImageFragment.newInstance()
                 replaceFragment(fragment)
+                Log.d("Image","First Image")
                 true
             }
             R.id.secondFragmentItem ->{
                 val fragment = SecondImageFragment.newInstance()
                 replaceFragment(fragment)
+                Log.d("Image","Second Image")
                 true
             }
 
