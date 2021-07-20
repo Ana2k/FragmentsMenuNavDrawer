@@ -8,30 +8,35 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.fragmentsyt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var _binding: ActivityMainBinding? = null
-    private val binding
-    get() = _binding
 
-    var mToolbar = binding.toolbar
-    var mDrawerLayout = binding.drawerLayout
-    val mDrawerToggle by lazy{
-        ActionBarDrawerToggle(this, mDrawerLayout,mToolbar,R.string.drawer_open,R.string.drawer_close)
-    }
+    private lateinit var _binding: ActivityMainBinding
+
+    private lateinit var mToolbar : Toolbar
+    private lateinit var mDrawerLayout : DrawerLayout
+    private lateinit var mDrawerToggle: ActionBarDrawerToggle
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        val view = _binding.root
         setContentView(view)
+
+        mToolbar = _binding.toolbar
+        mDrawerLayout = _binding.drawerLayout
+        mDrawerToggle = ActionBarDrawerToggle(this, mDrawerLayout,mToolbar,R.string.drawer_open,R.string.drawer_close)
+
         setSupportActionBar(mToolbar)
 
-        val navigationView = binding.navigationView
+        val navigationView = _binding.navigationView
 
         navigationView.setNavigationItemSelectedListener {
             selectDrawerItem(it)
@@ -56,9 +61,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (mDrawerToggle.onOptionsItemSelected(item)) true else super.onOptionsItemSelected(item)
-    }
 
     private fun selectDrawerItem(item: MenuItem){
         var fragment: Fragment? = null
@@ -72,16 +74,19 @@ class MainActivity : AppCompatActivity() {
 
         try{
             fragment = fragmentClass.newInstance() as Fragment
-            Log.d("Ana", "Inside try"+fragment.toString())
+            Log.d("Ana", "Inside try")
         }catch (e: ClassCastException){
             e.printStackTrace()
             Log.d("Ana", "inside catch")
         }
         replaceFragment(fragment)
-        val drawerLayout = binding.drawerLayout
-            drawerLayout.closeDrawer(GravityCompat.START)
-        Log.d("Ana", "draewr layout"+drawerLayout.toString())
+
+        mDrawerLayout.closeDrawer(GravityCompat.START)
+        Log.d("Ana", "draewr layout")
         //closes the drawer
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (mDrawerToggle.onOptionsItemSelected(item)) true else super.onOptionsItemSelected(item)
     }
 
     private fun replaceFragment(fragment: Fragment?){

@@ -30,6 +30,7 @@ class SecondImageFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?,): View? {
         _binding = SecondImageFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
+        Log.d("Ana","onCreateView2")
         return view
     }
 
@@ -37,13 +38,15 @@ class SecondImageFragment: Fragment() {
         var mImage = binding.secondFragmentImage
         var mProgressBar = binding.secondFragmentProgressBar
         mProgressBar.visibility = View.VISIBLE
+        Log.d("Ana","onLoadfirstImage2")
 
-        Glide.with(requireContext()).asBitmap()
-            .load((imageUrl2))
+        Glide.with(requireActivity()).asBitmap()
+            .load(Uri.parse(imageUrl2))
             .into(object: BitmapImageViewTarget(mImage){
                 override fun onResourceReady(resource: Bitmap,transition: Transition<in Bitmap>?,) {
                     super.onResourceReady(resource, transition)
                     mProgressBar.visibility = View.INVISIBLE
+                    Log.d("Ana","onResourceReady2 inside second image")
                 }
             })
     }
@@ -52,7 +55,8 @@ class SecondImageFragment: Fragment() {
 
     //onActivityCreated is deprecated so onViewCreated() will be used.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        loadSecondImageUrl()
         super.onViewCreated(view, savedInstanceState)
+        loadSecondImageUrl()
+        Log.d("Ana","onViewCreated2")
     }
 }
