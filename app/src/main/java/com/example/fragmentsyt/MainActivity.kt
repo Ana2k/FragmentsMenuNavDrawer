@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment
 import com.example.fragmentsyt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var _binding: ActivityMainBinding
+    private lateinit var _binding: ActivityMainBinding? = null
     private val binding
-        get() = _binding
+    get() = _binding
 
     var mToolbar = binding.toolbar
     var mDrawerLayout = binding.drawerLayout
