@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (fragment != null) {
             fragmentTransaction.replace(R.id.fragmentContainerView,fragment)
+            Log.d("AnaF","replaceFragment")
         }
         fragmentTransaction.commit()
     }
