@@ -16,8 +16,9 @@ import com.example.fragmentsyt.databinding.ThirdImageFragmentBinding
 
 class ThirdImageFragment: Fragment() {
 
-    private val imageUrl3 = "https://vetstreet.brightspotcdn.com/dims4/default/83afc7b/2147483647/thumbnail/645x380/quality/90/?url=https%3A%2F%2Fvetstreet-brightspot.s3.amazonaws.com%2Fa3%2F93%2F1d82d4f54148be6a4540ff0e7583%2FGolden-Retriever-AP-D9B8WE-645sm31714.jpg"
-
+    private var imageUrl3 = "https://animalso.com/wp-content/uploads/2016/11/small-golden-retriever_2.jpg"
+    //https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/labrador-retriever-dog-standing-in-field-royalty-free-image-590852449-1565105303.jpg?crop=0.732xw:1.00xh;0.196xw,0&resize=768:*
+    //better fittng image
     companion object{
         fun newInstance() = ThirdImageFragment()
     }

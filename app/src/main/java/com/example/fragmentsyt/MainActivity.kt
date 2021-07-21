@@ -18,7 +18,10 @@ import com.example.fragmentsyt.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+    //we add a onPageChangeListener to change the highlighted
+    //parts of the bottomnavdrawer bcs
+    //its like changing the above fragment but not the buttons
 
     private lateinit var _binding: ActivityMainBinding
 
@@ -57,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         //viewpager
         var pagerAdapter = ImageFragmentPageAdapter(supportFragmentManager)
         mViewPager.adapter = pagerAdapter
+        mViewPager.addOnPageChangeListener(this)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -101,5 +105,25 @@ class MainActivity : AppCompatActivity() {
             Log.d("AnaF","replaceFragment")
         }
         fragmentTransaction.commit()
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    }
+
+    override fun onPageSelected(position: Int) {
+        //get current menuitem id
+        val currentMenuItem = mBottomNavigationView.menu.getItem(position).itemId
+        if(currentMenuItem != mBottomNavigationView.selectedItemId)
+        {
+                //if we changed fragments
+                //pass that item to menu of bottom nav view which needs to be checked
+                // and make the selected item after finding it false checked...this will overall change the highlights
+            mBottomNavigationView.menu.getItem(position).isChecked = true
+            mBottomNavigationView.menu.findItem(mBottomNavigationView.selectedItemId).isChecked = false
+        }
+
+    }//highlight of bottom nav graph is changed here
+
+    override fun onPageScrollStateChanged(state: Int) {
     }
 }
