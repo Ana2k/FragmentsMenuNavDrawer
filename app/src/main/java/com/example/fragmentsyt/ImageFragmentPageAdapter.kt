@@ -8,13 +8,14 @@ import androidx.fragment.app.FragmentPagerAdapter
 //we can use the gesture module for creating swips but
 //may need this tech to update older values
 class ImageFragmentPageAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager){
-    override fun getCount()=2
+    override fun getCount()=3
     //strange i think tells of the number of pages involved with pagerAdapter
 
     override fun getItem(position: Int): Fragment {
         return when(position){
             0->FirstImageFragment.newInstance()
             1->SecondImageFragment.newInstance()
+            2->ThirdImageFragment.newInstance()
             else->FirstImageFragment.newInstance()
         }
     }

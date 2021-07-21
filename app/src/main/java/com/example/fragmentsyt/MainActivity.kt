@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -14,6 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.fragmentsyt.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mDrawerLayout : DrawerLayout
     private lateinit var mDrawerToggle: ActionBarDrawerToggle
     private lateinit var mViewPager: ViewPager
+    private lateinit var mBottomNavigationView: BottomNavigationView
 
 
 
@@ -36,9 +40,14 @@ class MainActivity : AppCompatActivity() {
         mDrawerLayout = _binding.drawerLayout
         mDrawerToggle = ActionBarDrawerToggle(this, mDrawerLayout,mToolbar,R.string.drawer_open,R.string.drawer_close)
         mViewPager = _binding.viewPager
+        mBottomNavigationView = _binding.bottomNavigationView
         setSupportActionBar(mToolbar)
 
         val navigationView = _binding.navigationView
+
+        mBottomNavigationView.setOnItemSelectedListener {
+            selectDrawerItem(it)
+        }
 
         navigationView.setNavigationItemSelectedListener {
             selectDrawerItem(it)
@@ -67,14 +76,17 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun selectDrawerItem(item: MenuItem){//we are going to divert viewPager implementation throught the drawerlayout
+    private fun selectDrawerItem(item: MenuItem): Boolean{//we are going to divert viewPager implementation throught the drawerlayout
         when(item.itemId){
             R.id.firstFragmentItem-> mViewPager.currentItem = 0
             R.id.secondFragmentItem-> mViewPager.currentItem = 1
+            R.id.thirdFagmentItem-> mViewPager.currentItem = 2
             else-> mViewPager.currentItem = 0
         }
 
-        mDrawerLayout.closeDrawer(GravityCompat.START)
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+            mDrawerLayout.closeDrawer(GravityCompat.START)
+        return true
         Log.d("Ana", "draewr layout")
         //closes the drawer
     }
