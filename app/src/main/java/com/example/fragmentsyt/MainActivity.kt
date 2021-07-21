@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.example.fragmentsyt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mToolbar : Toolbar
     private lateinit var mDrawerLayout : DrawerLayout
     private lateinit var mDrawerToggle: ActionBarDrawerToggle
+    private lateinit var mViewPager: ViewPager
 
 
 
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         mToolbar = _binding.toolbar
         mDrawerLayout = _binding.drawerLayout
         mDrawerToggle = ActionBarDrawerToggle(this, mDrawerLayout,mToolbar,R.string.drawer_open,R.string.drawer_close)
-
+        mViewPager = _binding.viewPager
         setSupportActionBar(mToolbar)
 
         val navigationView = _binding.navigationView
@@ -43,6 +45,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
         mDrawerLayout.addDrawerListener(mDrawerToggle)
+        //viewpager
+        var pagerAdapter = ImageFragmentPageAdapter(supportFragmentManager)
+        mViewPager.adapter = pagerAdapter
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -62,24 +67,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun selectDrawerItem(item: MenuItem){
-        var fragment: Fragment? = null
-        Log.d("Ana","selectDraweerItembeingCalled")
-        val fragmentClass = when(item.itemId){
-            R.id.firstFragmentItem -> FirstImageFragment::class.java
-            R.id.secondFragmentItem -> SecondImageFragment::class.java
-            else-> FirstImageFragment::class.java
+    private fun selectDrawerItem(item: MenuItem){//we are going to divert viewPager implementation throught the drawerlayout
+        when(item.itemId){
+            R.id.firstFragmentItem-> mViewPager.currentItem = 0
+            R.id.secondFragmentItem-> mViewPager.currentItem = 1
+            else-> mViewPager.currentItem = 0
         }
-        Log.d("Ana","fragmentClass called?\n"+fragmentClass)
-
-        try{
-            fragment = fragmentClass.newInstance() as Fragment
-            Log.d("Ana", "Inside try")
-        }catch (e: ClassCastException){
-            e.printStackTrace()
-            Log.d("Ana", "inside catch")
-        }
-        replaceFragment(fragment)
 
         mDrawerLayout.closeDrawer(GravityCompat.START)
         Log.d("Ana", "draewr layout")
